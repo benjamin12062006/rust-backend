@@ -1,0 +1,44 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: backend-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+  surrealdb:
+    image: surrealdb/surrealdb:latest
+    container_name: backend-surrealdb
+    user: "0:0"
+    command:
+      - start
+      - --user
+      - ${SURREALDB_USERNAME:-root}
+      - --pass
+      - ${SURREALDB_PASSWORD:-root}
+      - rocksdb:/data/backend.db
+    ports:
+      - "8000:8000"
+    volumes:
+      - surrealdb_data:/data
+    restart: unless-stopped
+  postgres:
+    image: postgres:15.2
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: test
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # <--- Este es el volumen
+
+
+volumes:
+  qdrant_data:
+  surrealdb_data:
+  postgres_data:
