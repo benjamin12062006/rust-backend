@@ -1,0 +1,15 @@
+[package]
+name = "backend_infrastructure"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+async-trait = "0.1.89"
+backend_application = { path = "../backend_application" }
+backend_common = { path = "../backend_common" }
+backend_config = { path = "../backend_config" }
+backend_domain = { path = "../backend_domain" }
+qdrant-client = "1.17.0"
+sqlx = { version = "0.8.6", features = ["migrate", "postgres", "runtime-tokio-native-tls", "uuid", "chrono"] }
+surrealdb = { version = "3.0.5", features = ["kv-mem", "protocol-ws"] }
+uuid = { version = "1.23.0", features = ["serde", "v4"] }

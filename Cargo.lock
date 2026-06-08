@@ -346,6 +346,13 @@ name = "backend"
 version = "0.1.0"
 dependencies = [
  "async-trait",
+ "backend_application",
+ "backend_bootstrap",
+ "backend_common",
+ "backend_config",
+ "backend_domain",
+ "backend_http",
+ "backend_infrastructure",
  "dotenv",
  "pwhash",
  "qdrant-client",
@@ -357,6 +364,84 @@ dependencies = [
  "tokio",
  "uuid",
  "warp",
+]
+
+[[package]]
+name = "backend_application"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "backend_common",
+ "backend_domain",
+ "pwhash",
+ "serde",
+ "uuid",
+]
+
+[[package]]
+name = "backend_bootstrap"
+version = "0.1.0"
+dependencies = [
+ "backend_application",
+ "backend_common",
+ "backend_config",
+ "backend_http",
+ "backend_infrastructure",
+ "qdrant-client",
+ "sqlx",
+ "surrealdb",
+ "thiserror 2.0.18",
+]
+
+[[package]]
+name = "backend_common"
+version = "0.1.0"
+dependencies = [
+ "pwhash",
+ "thiserror 2.0.18",
+ "warp",
+]
+
+[[package]]
+name = "backend_config"
+version = "0.1.0"
+dependencies = [
+ "dotenv",
+ "thiserror 2.0.18",
+]
+
+[[package]]
+name = "backend_domain"
+version = "0.1.0"
+dependencies = [
+ "uuid",
+]
+
+[[package]]
+name = "backend_http"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "backend_application",
+ "backend_common",
+ "serde",
+ "uuid",
+ "warp",
+]
+
+[[package]]
+name = "backend_infrastructure"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "backend_application",
+ "backend_common",
+ "backend_config",
+ "backend_domain",
+ "qdrant-client",
+ "sqlx",
+ "surrealdb",
+ "uuid",
 ]
 
 [[package]]
