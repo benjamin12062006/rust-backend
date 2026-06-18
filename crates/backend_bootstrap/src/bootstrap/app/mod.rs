@@ -1,8 +1,8 @@
-use crate::shared::bootstrap::error::BootstrapError;
-use crate::shared::bootstrap::features::build_application_services;
-use crate::shared::bootstrap::http_server::Server;
-use crate::shared::bootstrap::resources::AppResources;
-use crate::shared::configuration::loader::load_configuration;
+use crate::bootstrap::error::BootstrapError;
+use crate::bootstrap::services::build_application_services;
+use crate::bootstrap::http_server::Server;
+use crate::bootstrap::resources::AppResources;
+use backend_config::configuration::loader::load_configuration;
 
 pub async fn run() -> Result<(), BootstrapError> {
     let config = load_configuration()?;

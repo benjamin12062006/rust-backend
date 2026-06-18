@@ -6,7 +6,7 @@ use warp::reject::{self};
 use warp::reply::with_status;
 use warp::{Reply, filters::body::BodyDeserializeError, reject::Rejection, reply::json};
 
-use crate::shared::common::error::CustomError;
+use backend_common::common::error::CustomError;
 #[derive(Serialize)]
 struct ErrorResponse {
     message: String,

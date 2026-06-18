@@ -1,19 +1,19 @@
 use std::sync::Arc;
 
-use crate::shared::bootstrap::error::BootstrapError;
-use crate::shared::infrastructure::database::postgres::DbPool;
-use crate::shared::infrastructure::database::qdrant::QdrantClient;
-use crate::shared::infrastructure::database::surrealdb::SurrealDbClient;
+use crate::bootstrap::error::BootstrapError;
+use backend_infrastructure::database::postgres::DbPool;
+use backend_infrastructure::database::qdrant::QdrantClient;
+use backend_infrastructure::database::surrealdb::SurrealDbClient;
 
 #[derive(Clone)]
-pub struct FeatureResources {
+pub struct ServiceResources {
     pub feature: &'static str,
     pub postgres: Option<DbPool>,
     pub surrealdb: Option<Arc<SurrealDbClient>>,
     pub qdrant: Option<Arc<QdrantClient>>,
 }
 
-impl FeatureResources {
+impl ServiceResources {
     pub fn new(feature: &'static str) -> Self {
         Self {
             feature,

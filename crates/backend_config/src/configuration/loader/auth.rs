@@ -1,6 +1,6 @@
 use std::env;
 
-use crate::shared::configuration::{
+use crate::configuration::{
     auth::AuthProviderConfiguration, error::config_error::ConfigError,
 };
 

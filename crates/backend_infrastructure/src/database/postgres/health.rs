@@ -1,7 +1,7 @@
 //! Health check minimo para Postgres.
 
-use crate::shared::common::error::{CustomError, Result};
-use crate::shared::infrastructure::database::postgres::DbPool;
+use backend_common::common::error::{CustomError, Result};
+use crate::database::postgres::DbPool;
 
 /// Ejecuta un ping SQL minimo para validar conectividad con la base.
 pub async fn check_db_connection(pool: &DbPool) -> Result<()> {

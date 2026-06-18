@@ -7,12 +7,12 @@
 use async_trait::async_trait;
 use uuid::Uuid;
 
-use crate::features::user::application::dto::input::create_user_input::CreateUserInput;
-use crate::features::user::application::dto::output::user_output::UserOutput;
-use crate::features::user::application::use_cases;
-use crate::features::user::ports::inbound::user_use_case::IUserUseCase;
-use crate::features::user::ports::out::user_repository::IUserRepository;
-use crate::shared::common::error::Result;
+use crate::user_application::dto::input::create_user_input::CreateUserInput;
+use crate::user_application::dto::output::user_output::UserOutput;
+use crate::user_application::use_cases;
+use crate::user_ports::inbound::user_use_case::IUserUseCase;
+use crate::user_ports::out::user_repository::IUserRepository;
+use backend_common::common::error::Result;
 
 /// Adaptador de application que conecta puerto de entrada con casos de uso.
 pub struct UserService<R>

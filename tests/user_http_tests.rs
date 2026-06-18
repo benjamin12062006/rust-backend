@@ -2,8 +2,8 @@ mod support;
 
 use std::convert::Infallible;
 
-use backend::shared::bootstrap::http_server::{self, Services};
-use backend::shared::bootstrap::middleware;
+use backend_http::http_server::{self, Services};
+use backend_http::middleware;
 use rstest::{fixture, rstest};
 use serde_json::{Value, json};
 use support::builders;
@@ -197,7 +197,7 @@ fn route_rejections_return_controlled_json(
 fn routes_accept_any_valid_uuid_shape() {
     block_on(async {
         let id = Uuid::from_u128(99);
-        let output = backend::features::user::application::dto::output::user_output::UserOutput {
+        let output = backend_application::user_application::dto::output::user_output::UserOutput {
             user_id: id,
             first_name: "Route".to_string(),
             last_name: "Test".to_string(),

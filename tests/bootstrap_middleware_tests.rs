@@ -2,8 +2,8 @@ mod support;
 
 use std::convert::Infallible;
 
-use backend::shared::bootstrap::middleware;
-use backend::shared::common::error::CustomError;
+use backend_http::middleware;
+use backend_common::common::error::CustomError;
 use rstest::rstest;
 use serde_json::Value;
 use support::runtime::block_on;

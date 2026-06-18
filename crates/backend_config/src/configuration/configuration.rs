@@ -1,5 +1,5 @@
-use crate::shared::configuration::auth::AuthProviderConfiguration;
-use crate::shared::configuration::database::ConfigurationDatabases;
+use crate::configuration::auth::AuthProviderConfiguration;
+use crate::configuration::database::ConfigurationDatabases;
 
 pub struct ServerConfiguration {
     pub port: String,

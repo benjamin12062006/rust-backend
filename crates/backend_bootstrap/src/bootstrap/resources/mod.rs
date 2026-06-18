@@ -1,7 +1,7 @@
 pub mod databases;
 
-use crate::shared::bootstrap::error::BootstrapError;
-use crate::shared::configuration::configuration::Configuration;
+use crate::bootstrap::error::BootstrapError;
+use backend_config::configuration::configuration::Configuration;
 
 pub use databases::DatabaseResources;
 

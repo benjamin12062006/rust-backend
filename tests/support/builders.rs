@@ -1,6 +1,6 @@
-use backend::features::user::application::dto::input::create_user_input::CreateUserInput;
-use backend::features::user::application::dto::output::user_output::UserOutput;
-use backend::features::user::ports::out::user::records::output::stored_user_record::StoredUserRecord;
+use backend_application::user_application::dto::input::create_user_input::CreateUserInput;
+use backend_application::user_application::dto::output::user_output::UserOutput;
+use backend_application::user_ports::out::user::records::output::stored_user_record::StoredUserRecord;
 use uuid::Uuid;
 
 pub const DEFAULT_USER_ID: Uuid = Uuid::from_u128(1);

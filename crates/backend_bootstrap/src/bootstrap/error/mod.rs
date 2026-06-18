@@ -1,7 +1,7 @@
 use thiserror::Error as ThisError;
 
-use crate::shared::common::error::CustomError;
-use crate::shared::configuration::error::config_error::ConfigError;
+use backend_common::common::error::CustomError;
+use backend_config::configuration::error::config_error::ConfigError;
 
 #[derive(Debug, ThisError)]
 pub enum BootstrapError {

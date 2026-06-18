@@ -1,17 +1,17 @@
-mod feature_resources;
+mod service_resources;
 mod user;
 
 use backend_http::http_server::Services as ApplicationServices;
 
-use crate::shared::bootstrap::error::BootstrapError;
-use crate::shared::bootstrap::resources::AppResources;
+use crate::bootstrap::error::BootstrapError;
+use crate::bootstrap::resources::AppResources;
 
-pub use feature_resources::FeatureResources;
+pub use service_resources::ServiceResources;
 
 pub fn build_application_services(
     resources: &AppResources,
 ) -> Result<ApplicationServices, BootstrapError> {
-    let user_resources = FeatureResources {
+    let user_resources = ServiceResources {
         feature: "user",
         postgres: Some(resources.databases().postgres().clone()),
         surrealdb: None,

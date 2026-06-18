@@ -1,6 +1,6 @@
 //! Record de entrada al repositorio para crear usuario.
 
-use crate::features::user::domain::user_model::User;
+use backend_domain::user::user_model::User;
 
 /// Datos que cruzan desde application hacia el repositorio al crear usuario.
 #[derive(Debug, Clone)]

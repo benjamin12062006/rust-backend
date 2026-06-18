@@ -3,9 +3,9 @@
 use async_trait::async_trait;
 use uuid::Uuid;
 
-use crate::features::user::ports::out::user::records::input::create_user_record::CreateUserRecord;
-use crate::features::user::ports::out::user::records::output::stored_user_record::StoredUserRecord;
-use crate::shared::common::error::Result;
+use crate::user_ports::out::user::records::input::create_user_record::CreateUserRecord;
+use crate::user_ports::out::user::records::output::stored_user_record::StoredUserRecord;
+use backend_common::common::error::Result;
 
 /// Contrato que application usa para hablar con infraestructura de usuarios.
 #[async_trait]

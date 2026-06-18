@@ -1,8 +1,8 @@
 use std::sync::Arc;
 
-use crate::shared::bootstrap::error::BootstrapError;
-use crate::shared::configuration::database::SurrealDbConfiguration;
-use crate::shared::infrastructure::database::surrealdb::{self, SurrealDbClient};
+use crate::bootstrap::error::BootstrapError;
+use backend_config::configuration::database::SurrealDbConfiguration;
+use backend_infrastructure::database::surrealdb::{self, SurrealDbClient};
 
 pub async fn initialize(
     config: &SurrealDbConfiguration,

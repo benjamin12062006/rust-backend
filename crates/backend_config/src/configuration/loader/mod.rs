@@ -2,7 +2,7 @@ use std::env;
 
 use dotenv::dotenv;
 
-use crate::shared::configuration::{
+use crate::configuration::{
     configuration::{Configuration, ServerConfiguration},
     error::config_error::ConfigError,
 };

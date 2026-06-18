@@ -1,13 +1,13 @@
 use std::sync::{Arc, Mutex};
 
 use async_trait::async_trait;
-use backend::features::user::application::dto::input::create_user_input::CreateUserInput;
-use backend::features::user::application::dto::output::user_output::UserOutput;
-use backend::features::user::ports::inbound::user_use_case::IUserUseCase;
-use backend::features::user::ports::out::user::records::input::create_user_record::CreateUserRecord;
-use backend::features::user::ports::out::user::records::output::stored_user_record::StoredUserRecord;
-use backend::features::user::ports::out::user::user_repository::IUserRepository;
-use backend::shared::common::error::{CustomError, Result};
+use backend_application::user_application::dto::input::create_user_input::CreateUserInput;
+use backend_application::user_application::dto::output::user_output::UserOutput;
+use backend_application::user_ports::inbound::user_use_case::IUserUseCase;
+use backend_application::user_ports::out::user::records::input::create_user_record::CreateUserRecord;
+use backend_application::user_ports::out::user::records::output::stored_user_record::StoredUserRecord;
+use backend_application::user_ports::out::user::user_repository::IUserRepository;
+use backend_common::common::error::{CustomError, Result};
 use uuid::Uuid;
 
 #[derive(Clone, Default)]

@@ -1,9 +1,9 @@
 mod support;
 
-use backend::features::user::application::use_cases;
-use backend::features::user::application::user_service::UserService;
-use backend::features::user::ports::inbound::user_use_case::IUserUseCase;
-use backend::shared::common::error::CustomError;
+use backend_application::user_application::use_cases;
+use backend_application::user_application::user_service::UserService;
+use backend_application::user_ports::inbound::user_use_case::IUserUseCase;
+use backend_common::common::error::CustomError;
 use pwhash::bcrypt;
 use rstest::{fixture, rstest};
 use support::builders;

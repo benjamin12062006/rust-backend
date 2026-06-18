@@ -1,7 +1,7 @@
 mod support;
 
-use backend::shared::configuration::loader::load_configuration;
-use backend::shared::infrastructure::database::{check_db_connection, create_connection};
+use backend_config::configuration::loader::load_configuration;
+use backend_infrastructure::database::{check_db_connection, create_connection};
 use rstest::rstest;
 use support::runtime::block_on;
 

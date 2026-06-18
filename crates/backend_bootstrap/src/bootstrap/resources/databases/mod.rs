@@ -4,11 +4,11 @@ mod surrealdb;
 
 use std::sync::Arc;
 
-use crate::shared::bootstrap::error::BootstrapError;
-use crate::shared::configuration::database::ConfigurationDatabases;
-use crate::shared::infrastructure::database::postgres::DbPool;
-use crate::shared::infrastructure::database::qdrant::QdrantClient;
-use crate::shared::infrastructure::database::surrealdb::SurrealDbClient;
+use crate::bootstrap::error::BootstrapError;
+use backend_config::configuration::database::ConfigurationDatabases;
+use backend_infrastructure::database::postgres::DbPool;
+use backend_infrastructure::database::qdrant::QdrantClient;
+use backend_infrastructure::database::surrealdb::SurrealDbClient;
 
 pub struct DatabaseResources {
     postgres: DbPool,

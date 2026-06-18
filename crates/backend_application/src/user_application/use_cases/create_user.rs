@@ -3,13 +3,13 @@
 //! Flujo: `CreateUserInput -> User -> CreateUserRecord -> repo -> UserOutput`.
 //! Aqui se aplica hash de password antes de persistir.
 
-use crate::features::user::application::dto::input::create_user_input::CreateUserInput;
-use crate::features::user::application::dto::output::user_output::UserOutput;
-use crate::features::user::application::policies::password_policy::hash_password;
-use crate::features::user::domain::user_model::User;
-use crate::features::user::ports::out::user::records::input::create_user_record::CreateUserRecord;
-use crate::features::user::ports::out::user_repository::IUserRepository;
-use crate::shared::common::error::Result;
+use crate::user_application::dto::input::create_user_input::CreateUserInput;
+use crate::user_application::dto::output::user_output::UserOutput;
+use crate::user_application::policies::password_policy::hash_password;
+use backend_domain::user::user_model::User;
+use crate::user_ports::out::user::records::input::create_user_record::CreateUserRecord;
+use crate::user_ports::out::user_repository::IUserRepository;
+use backend_common::common::error::Result;
 
 /// Ejecuta el caso de uso de creacion de usuario.
 pub async fn execute<R>(repo: &R, input: CreateUserInput) -> Result<UserOutput>

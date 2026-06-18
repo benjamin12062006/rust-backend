@@ -1,8 +1,8 @@
 use serde::Deserialize;
 use std::convert::TryFrom;
 
-use crate::features::user::application::dto::input::create_user_input::CreateUserInput;
-use crate::shared::common::error::CustomError;
+use backend_application::user_application::dto::input::create_user_input::CreateUserInput;
+use backend_common::common::error::CustomError;
 
 #[derive(Deserialize)]
 pub struct CreateUserDto {

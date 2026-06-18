@@ -11,7 +11,7 @@
 
 use uuid::Uuid;
 
-use crate::features::user::domain::user_model::User;
+use backend_domain::user::user_model::User;
 
 /// Datos de entrada requeridos para crear un usuario.
 ///

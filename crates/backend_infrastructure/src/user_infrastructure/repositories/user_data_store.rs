@@ -3,10 +3,10 @@
 //! Encapsula queries concretas y devuelve `UserEntity` para que el adapter
 //! de repositorio realice el mapeo al record de puerto.
 
-use crate::features::user::infrastructure::repositories::user_entity::UserEntity;
-use crate::features::user::ports::out::user::records::input::create_user_record::CreateUserRecord;
-use crate::shared::common::error::{CustomError, Result};
-use crate::shared::infrastructure::database::DbPool;
+use crate::user_infrastructure::repositories::user_entity::UserEntity;
+use backend_application::user_ports::out::user::records::input::create_user_record::CreateUserRecord;
+use backend_common::common::error::{CustomError, Result};
+use crate::database::DbPool;
 use uuid::Uuid;
 
 pub struct UserDataStore {

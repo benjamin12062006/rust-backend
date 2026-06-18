@@ -7,8 +7,8 @@ use surrealdb::Surreal;
 use surrealdb::engine::remote::ws::{Client, Ws};
 use surrealdb::opt::auth::Root;
 
-use crate::shared::common::error::{CustomError, Result};
-use crate::shared::configuration::database::SurrealDbConfiguration;
+use backend_common::common::error::{CustomError, Result};
+use backend_config::configuration::database::SurrealDbConfiguration;
 
 pub type SurrealDbClient = Surreal<Client>;
 

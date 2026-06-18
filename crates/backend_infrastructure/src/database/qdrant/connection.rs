@@ -5,8 +5,8 @@
 
 use qdrant_client::Qdrant;
 
-use crate::shared::common::error::{CustomError, Result};
-use crate::shared::configuration::database::QdrantConfiguration;
+use backend_common::common::error::{CustomError, Result};
+use backend_config::configuration::database::QdrantConfiguration;
 
 
 pub type QdrantClient = Qdrant;

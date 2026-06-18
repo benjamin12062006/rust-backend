@@ -1,11 +1,11 @@
 use std::sync::Arc;
 
-use backend_application::features::user::ports::inbound::user_use_case::IUserUseCase;
+use backend_application::user_ports::inbound::user_use_case::IUserUseCase;
 use uuid::Uuid;
 use warp::filters::BoxedFilter;
 use warp::{Filter, Rejection, Reply, http, path};
 
-use crate::features::user::presentation::http::user_controller;
+use crate::user_http::user_controller;
 use crate::middleware;
 
 #[derive(Clone)]

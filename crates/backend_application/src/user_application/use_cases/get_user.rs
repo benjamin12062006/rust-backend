@@ -4,9 +4,9 @@
 
 use uuid::Uuid;
 
-use crate::features::user::application::dto::output::user_output::UserOutput;
-use crate::features::user::ports::out::user::user_repository::IUserRepository;
-use crate::shared::common::error::Result;
+use crate::user_application::dto::output::user_output::UserOutput;
+use crate::user_ports::out::user::user_repository::IUserRepository;
+use backend_common::common::error::Result;
 
 /// Ejecuta el caso de uso de busqueda por id.
 pub async fn execute<R>(repo: &R, id: &Uuid) -> Result<UserOutput>

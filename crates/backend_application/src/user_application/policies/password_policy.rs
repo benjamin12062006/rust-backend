@@ -1,6 +1,6 @@
 use pwhash::bcrypt;
 
-use crate::shared::common::error::Result;
+use backend_common::common::error::Result;
 
 pub fn hash_password(password: &str) -> Result<String> {
     Ok(bcrypt::hash(password)?)

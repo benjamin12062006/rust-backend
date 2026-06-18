@@ -1,7 +1,7 @@
 //! Health check minimo para Qdrant.
 
-use crate::shared::common::error::{CustomError, Result};
-use crate::shared::infrastructure::database::qdrant::QdrantClient;
+use backend_common::common::error::{CustomError, Result};
+use crate::database::qdrant::QdrantClient;
 
 /// Valida que el servidor Qdrant responda por gRPC.
 pub async fn check_db_connection(client: &QdrantClient)->Result<()> {

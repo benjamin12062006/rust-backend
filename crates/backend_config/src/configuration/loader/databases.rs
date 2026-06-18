@@ -1,6 +1,6 @@
 use std::env;
 
-use crate::shared::configuration::{
+use crate::configuration::{
     database::{
         ConfigurationDatabases, PostgresConfiguration, QdrantConfiguration, SurrealDbConfiguration,
     },

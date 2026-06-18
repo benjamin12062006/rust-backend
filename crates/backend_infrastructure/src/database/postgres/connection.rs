@@ -3,7 +3,7 @@
 use sqlx::Pool;
 use sqlx::postgres::{PgPoolOptions, Postgres};
 
-use crate::shared::common::error::{CustomError, Result};
+use backend_common::common::error::{CustomError, Result};
 
 const DB_POOL_MAX_CONNECTIONS: u32 = 5;
 

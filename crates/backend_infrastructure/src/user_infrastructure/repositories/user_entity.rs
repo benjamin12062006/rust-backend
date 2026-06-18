@@ -6,7 +6,7 @@
 use sqlx::FromRow;
 use uuid::Uuid;
 
-use crate::features::user::ports::out::user::records::output::stored_user_record::StoredUserRecord;
+use backend_application::user_ports::out::user::records::output::stored_user_record::StoredUserRecord;
 
 #[derive(Debug, FromRow)]
 pub struct UserEntity {

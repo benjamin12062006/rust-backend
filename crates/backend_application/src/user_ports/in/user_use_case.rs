@@ -3,9 +3,9 @@
 use async_trait::async_trait;
 use uuid::Uuid;
 
-use crate::features::user::application::dto::input::create_user_input::CreateUserInput;
-use crate::features::user::application::dto::output::user_output::UserOutput;
-use crate::shared::common::error::Result;
+use crate::user_application::dto::input::create_user_input::CreateUserInput;
+use crate::user_application::dto::output::user_output::UserOutput;
+use backend_common::common::error::Result;
 
 /// Puerto de entrada que expone operaciones de usuario para capas externas.
 #[async_trait]

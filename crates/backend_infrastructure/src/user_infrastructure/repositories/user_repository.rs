@@ -3,12 +3,12 @@
 //! Implementa el puerto `IUserRepository` usando `UserDataStore` (SQLx) y
 //! mapea `UserEntity` a `StoredUserRecord`.
 
-use crate::features::user::infrastructure::repositories::user_data_store::UserDataStore;
-use crate::features::user::infrastructure::repositories::user_entity::UserEntity;
-use crate::features::user::ports::out::user::records::input::create_user_record::CreateUserRecord;
-use crate::features::user::ports::out::user::records::output::stored_user_record::StoredUserRecord;
-use crate::features::user::ports::out::user::user_repository::IUserRepository;
-use crate::shared::common::error::CustomError;
+use crate::user_infrastructure::repositories::user_data_store::UserDataStore;
+use crate::user_infrastructure::repositories::user_entity::UserEntity;
+use backend_application::user_ports::out::user::records::input::create_user_record::CreateUserRecord;
+use backend_application::user_ports::out::user::records::output::stored_user_record::StoredUserRecord;
+use backend_application::user_ports::out::user::user_repository::IUserRepository;
+use backend_common::common::error::CustomError;
 use async_trait::async_trait;
 
 pub struct UserRepository {

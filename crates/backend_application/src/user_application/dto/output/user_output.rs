@@ -9,10 +9,9 @@
 
 use uuid::Uuid;
 
-use crate::{
-    features::user::domain::user_model::User,
-    features::user::ports::out::user::records::output::stored_user_record::StoredUserRecord,
-};
+use backend_domain::user::user_model::User;
+
+use crate::user_ports::out::user::records::output::stored_user_record::StoredUserRecord;
 
 /// Datos de salida de usuario listos para capa externa.
 ///

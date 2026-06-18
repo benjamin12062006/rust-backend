@@ -1,7 +1,7 @@
 use serde::Serialize;
 use uuid::Uuid;
 
-use crate::features::user::application::dto::output::user_output::UserOutput;
+use backend_application::user_application::dto::output::user_output::UserOutput;
 
 #[derive(Serialize)]
 pub struct UserResponseDto {

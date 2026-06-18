@@ -4,10 +4,10 @@ use uuid::Uuid;
 use warp::reply::json;
 use warp::{Rejection, Reply, reject};
 
-use crate::features::user::application::dto::input::create_user_input::CreateUserInput;
-use crate::features::user::ports::inbound::user_use_case::IUserUseCase;
-use crate::features::user::presentation::http::dto::user_request_dto::CreateUserDto;
-use crate::features::user::presentation::http::dto::user_response_dto::UserResponseDto;
+use backend_application::user_application::dto::input::create_user_input::CreateUserInput;
+use backend_application::user_ports::inbound::user_use_case::IUserUseCase;
+use crate::user_http::dto::user_request_dto::CreateUserDto;
+use crate::user_http::dto::user_response_dto::UserResponseDto;
 
 pub async fn list_users(
     user_service: Arc<dyn IUserUseCase>

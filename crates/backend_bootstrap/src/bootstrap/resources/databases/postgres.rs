@@ -1,8 +1,8 @@
 use sqlx::migrate::Migrator;
 
-use crate::shared::bootstrap::error::BootstrapError;
-use crate::shared::configuration::database::PostgresConfiguration;
-use crate::shared::infrastructure::database::postgres::{self, DbPool};
+use crate::bootstrap::error::BootstrapError;
+use backend_config::configuration::database::PostgresConfiguration;
+use backend_infrastructure::database::postgres::{self, DbPool};
 
 static MIGRATOR: Migrator = sqlx::migrate!("../../migrations");
 
