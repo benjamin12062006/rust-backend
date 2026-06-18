@@ -4,6 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-pwhash = "1.0.0"
-thiserror = "2.0.18"
-warp = { version = "0.4.2", features = ["server", "test"] }
+pwhash = { workspace = true }
+thiserror = { workspace = true }
+warp = { workspace = true }

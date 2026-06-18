@@ -4,12 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-async-trait = "0.1.89"
+async-trait = { workspace = true }
 backend_common = { path = "../backend_common" }
 backend_domain = { path = "../backend_domain" }
-pwhash = "1.0.0"
-serde = { version = "1.0.228", features = ["derive"] }
-uuid = { version = "1.23.0", features = ["serde", "v4"] }
+pwhash = { workspace = true }
+uuid = { workspace = true }
 
 [dev-dependencies]
 rstest = { workspace = true }
