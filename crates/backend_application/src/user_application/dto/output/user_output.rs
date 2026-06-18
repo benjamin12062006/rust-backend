@@ -86,18 +86,37 @@ impl From<User> for UserOutput {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rstest::{fixture, rstest};
 
-    #[test]
-    fn stored_user_record_maps_to_user_output_without_password() {
-        let stored_user = StoredUserRecord {
+    #[fixture]
+    fn stored_user_record() -> StoredUserRecord {
+        StoredUserRecord {
             user_id: Uuid::from_u128(1),
             first_name: "Benji".to_string(),
             last_name: "Dev".to_string(),
             email: "benji@example.com".to_string(),
             username: "benji".to_string(),
             password_hash: "hashed-password".to_string(),
-        };
+        }
+    }
 
+    #[fixture]
+    fn domain_user() -> User {
+        User {
+            user_id: Uuid::from_u128(2),
+            first_name: "Ana".to_string(),
+            last_name: "Lopez".to_string(),
+            email: "ana@example.com".to_string(),
+            user_name: "ana".to_string(),
+            password: "secret".to_string(),
+        }
+    }
+
+    #[rstest]
+    fn stored_user_record_maps_to_user_output_without_password(
+        stored_user_record: StoredUserRecord,
+    ) {
+        let stored_user = stored_user_record;
         let output = UserOutput::from(stored_user);
 
         assert_eq!(output.user_id, Uuid::from_u128(1));
@@ -107,18 +126,9 @@ mod tests {
         assert_eq!(output.username, "benji");
     }
 
-    #[test]
-    fn domain_user_maps_to_user_output() {
-        let user = User {
-            user_id: Uuid::from_u128(2),
-            first_name: "Ana".to_string(),
-            last_name: "Lopez".to_string(),
-            email: "ana@example.com".to_string(),
-            user_name: "ana".to_string(),
-            password: "secret".to_string(),
-        };
-
-        let output: UserOutput = user.into();
+    #[rstest]
+    fn domain_user_maps_to_user_output(domain_user: User) {
+        let output: UserOutput = domain_user.into();
 
         assert_eq!(output.user_id, Uuid::from_u128(2));
         assert_eq!(output.first_name, "Ana");

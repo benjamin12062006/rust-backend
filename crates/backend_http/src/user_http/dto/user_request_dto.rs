@@ -54,7 +54,9 @@ impl TryFrom<CreateUserDto> for CreateUserInput {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rstest::{fixture, rstest};
 
+    #[fixture]
     fn valid_dto() -> CreateUserDto {
         CreateUserDto {
             first_name: "Benji".to_string(),
@@ -65,9 +67,9 @@ mod tests {
         }
     }
 
-    #[test]
-    fn create_user_dto_valid_becomes_create_user_input() {
-        let input = CreateUserInput::try_from(valid_dto()).expect("dto should be valid");
+    #[rstest]
+    fn create_user_dto_valid_becomes_create_user_input(valid_dto: CreateUserDto) {
+        let input = CreateUserInput::try_from(valid_dto).expect("dto should be valid");
 
         assert_eq!(input.first_name, "Benji");
         assert_eq!(input.last_name, "Dev");
@@ -76,58 +78,33 @@ mod tests {
         assert_eq!(input.password, "secret");
     }
 
-    #[test]
-    fn create_user_dto_rejects_empty_first_name() {
-        let mut dto = valid_dto();
-        dto.first_name = " ".to_string();
+    #[rstest]
+    #[case::empty_first_name("first_name", " ", "first_name must not be empty")]
+    #[case::empty_last_name("last_name", " ", "last_name must not be empty")]
+    #[case::empty_username("username", " ", "username must not be empty")]
+    #[case::empty_password("password", " ", "password must not be empty")]
+    #[case::invalid_email("email", "not-an-email", "email is not valid")]
+    fn create_user_dto_rejects_invalid_fields(
+        #[case] field: &str,
+        #[case] value: &str,
+        #[case] expected_message: &str,
+        valid_dto: CreateUserDto,
+    ) {
+        let mut dto = valid_dto;
+        match field {
+            "first_name" => dto.first_name = value.to_string(),
+            "last_name" => dto.last_name = value.to_string(),
+            "username" => dto.username = value.to_string(),
+            "password" => dto.password = value.to_string(),
+            "email" => dto.email = value.to_string(),
+            _ => unreachable!("unknown dto field in test case"),
+        }
+
+        let result = CreateUserInput::try_from(dto);
 
         assert!(matches!(
-            CreateUserInput::try_from(dto),
-            Err(CustomError::HttpError(_))
-        ));
-    }
-
-    #[test]
-    fn create_user_dto_rejects_empty_last_name() {
-        let mut dto = valid_dto();
-        dto.last_name = " ".to_string();
-
-        assert!(matches!(
-            CreateUserInput::try_from(dto),
-            Err(CustomError::HttpError(_))
-        ));
-    }
-
-    #[test]
-    fn create_user_dto_rejects_empty_username() {
-        let mut dto = valid_dto();
-        dto.username = " ".to_string();
-
-        assert!(matches!(
-            CreateUserInput::try_from(dto),
-            Err(CustomError::HttpError(_))
-        ));
-    }
-
-    #[test]
-    fn create_user_dto_rejects_empty_password() {
-        let mut dto = valid_dto();
-        dto.password = " ".to_string();
-
-        assert!(matches!(
-            CreateUserInput::try_from(dto),
-            Err(CustomError::HttpError(_))
-        ));
-    }
-
-    #[test]
-    fn create_user_dto_rejects_invalid_email() {
-        let mut dto = valid_dto();
-        dto.email = "not-an-email".to_string();
-
-        assert!(matches!(
-            CreateUserInput::try_from(dto),
-            Err(CustomError::HttpError(_))
+            result,
+            Err(CustomError::HttpError(message)) if message.contains(expected_message)
         ));
     }
 }

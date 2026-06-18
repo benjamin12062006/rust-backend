@@ -5,15 +5,25 @@ use backend::features::user::application::user_service::UserService;
 use backend::features::user::ports::inbound::user_use_case::IUserUseCase;
 use backend::shared::common::error::CustomError;
 use pwhash::bcrypt;
+use rstest::{fixture, rstest};
 use support::builders;
 use support::fakes::FakeUserRepository;
 use support::runtime::block_on;
 use uuid::Uuid;
 
-#[test]
-fn create_user_hashes_password_before_persisting() {
+#[fixture]
+fn repo() -> FakeUserRepository {
+    FakeUserRepository::default()
+}
+
+#[fixture]
+fn repo_with_stored_user() -> FakeUserRepository {
+    FakeUserRepository::default().with_create_result(Ok(builders::stored_user_record()))
+}
+
+#[rstest]
+fn create_user_hashes_password_before_persisting(repo: FakeUserRepository) {
     block_on(async {
-        let repo = FakeUserRepository::default();
         let input = builders::create_user_input();
 
         let output = use_cases::create_user::execute(&repo, input)
@@ -36,15 +46,15 @@ fn create_user_hashes_password_before_persisting() {
     });
 }
 
-#[test]
-fn create_user_returns_user_output_from_repository_record() {
+#[rstest]
+fn create_user_returns_user_output_from_repository_record(
+    repo_with_stored_user: FakeUserRepository,
+) {
     block_on(async {
-        let repo =
-            FakeUserRepository::default().with_create_result(Ok(builders::stored_user_record()));
-
-        let output = use_cases::create_user::execute(&repo, builders::create_user_input())
-            .await
-            .expect("user should be created");
+        let output =
+            use_cases::create_user::execute(&repo_with_stored_user, builders::create_user_input())
+                .await
+                .expect("user should be created");
 
         assert_eq!(output.user_id, builders::DEFAULT_USER_ID);
         assert_eq!(output.first_name, "Benji");
@@ -54,7 +64,7 @@ fn create_user_returns_user_output_from_repository_record() {
     });
 }
 
-#[test]
+#[rstest]
 fn create_user_propagates_repository_error() {
     block_on(async {
         let repo = FakeUserRepository::default()
@@ -66,7 +76,7 @@ fn create_user_propagates_repository_error() {
     });
 }
 
-#[test]
+#[rstest]
 fn list_users_returns_outputs_from_repository_records() {
     block_on(async {
         let repo = FakeUserRepository::default()
@@ -82,11 +92,9 @@ fn list_users_returns_outputs_from_repository_records() {
     });
 }
 
-#[test]
-fn list_users_returns_empty_vec_when_repository_is_empty() {
+#[rstest]
+fn list_users_returns_empty_vec_when_repository_is_empty(repo: FakeUserRepository) {
     block_on(async {
-        let repo = FakeUserRepository::default();
-
         let users = use_cases::list_users::execute(&repo)
             .await
             .expect("empty list should be valid");
@@ -95,7 +103,7 @@ fn list_users_returns_empty_vec_when_repository_is_empty() {
     });
 }
 
-#[test]
+#[rstest]
 fn list_users_propagates_repository_error() {
     block_on(async {
         let repo = FakeUserRepository::default()
@@ -107,7 +115,7 @@ fn list_users_propagates_repository_error() {
     });
 }
 
-#[test]
+#[rstest]
 fn get_user_returns_matching_user_and_borrows_uuid_to_repository() {
     block_on(async {
         let repo =
@@ -124,7 +132,7 @@ fn get_user_returns_matching_user_and_borrows_uuid_to_repository() {
     });
 }
 
-#[test]
+#[rstest]
 fn get_user_propagates_repository_error() {
     block_on(async {
         let repo = FakeUserRepository::default()
@@ -136,7 +144,7 @@ fn get_user_propagates_repository_error() {
     });
 }
 
-#[test]
+#[rstest]
 fn user_service_implements_inbound_port_over_repository_port() {
     block_on(async {
         let repo = FakeUserRepository::default()

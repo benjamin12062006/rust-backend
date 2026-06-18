@@ -15,6 +15,9 @@ members = [
 ]
 resolver = "3"
 
+[workspace.dependencies]
+rstest = "0.25.0"
+
 [dependencies]
 async-trait = "0.1.89"
 backend_application = { path = "crates/backend_application" }
@@ -37,6 +40,8 @@ warp = { version = "0.4.2", features = ["server", "test"] }
 
 [dev-dependencies]
 serde_json = "1"
+pretty_assertions = "1.4.1"
+rstest = { workspace = true }
 
 [profile.release]
 lto = true

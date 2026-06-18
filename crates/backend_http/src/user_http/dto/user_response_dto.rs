@@ -27,17 +27,22 @@ impl From<UserOutput> for UserResponseDto {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rstest::{fixture, rstest};
 
-    #[test]
-    fn user_output_maps_to_http_response_dto() {
-        let output = UserOutput {
+    #[fixture]
+    fn user_output() -> UserOutput {
+        UserOutput {
             user_id: Uuid::from_u128(1),
             first_name: "Benji".to_string(),
             last_name: "Dev".to_string(),
             email: "benji@example.com".to_string(),
             username: "benji".to_string(),
-        };
+        }
+    }
 
+    #[rstest]
+    fn user_output_maps_to_http_response_dto(user_output: UserOutput) {
+        let output = user_output;
         let response = UserResponseDto::from(output);
 
         assert_eq!(response.user_id, Uuid::from_u128(1));

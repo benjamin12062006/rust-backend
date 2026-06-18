@@ -2,9 +2,10 @@ mod support;
 
 use backend::shared::configuration::loader::load_configuration;
 use backend::shared::infrastructure::database::{check_db_connection, create_connection};
+use rstest::rstest;
 use support::runtime::block_on;
 
-#[test]
+#[rstest]
 fn database_connection_ping_is_opt_in() {
     if std::env::var("RUN_DB_TESTS").as_deref() != Ok("true") {
         eprintln!("skipping database test; set RUN_DB_TESTS=true to enable it");
