@@ -83,7 +83,6 @@ impl IUserRepository for FakeUserRepository {
         }
     }
 
-    // TODO: CONTINUE
     async fn list_users(&self) -> Result<Vec<StoredUserRecord>> {
         self.state
             .lock()
@@ -93,6 +92,9 @@ impl IUserRepository for FakeUserRepository {
             .unwrap_or_else(|| Ok(vec![]))
     }
 
+    // Stub → devuelve respuestas preparadas.
+    // Spy  → recuerda las llamadas recibidas.
+    // Fake → implementación ligera que puede hacer ambas cosas.
     async fn get_user(&self, id: &Uuid) -> Result<StoredUserRecord> {
         let mut state = self.state.lock().expect("fake repository lock");
         state.last_get_id = Some(*id);
@@ -103,6 +105,9 @@ impl IUserRepository for FakeUserRepository {
     }
 }
 
+
+
+// todo : continuar
 #[derive(Clone)]
 pub struct FakeUserUseCase {
     state: Arc<Mutex<FakeUserUseCaseState>>,

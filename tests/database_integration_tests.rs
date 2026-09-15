@@ -8,7 +8,7 @@ use support::runtime::block_on;
 #[rstest]
 fn database_connection_ping_is_opt_in() {
     if std::env::var("RUN_DB_TESTS").as_deref() != Ok("true") {
-        eprintln!("skipping database test; set RUN_DB_TESTS=true to enable it");
+        eprintln!("skipping database test; set RUN_DB_TESTS=false to enable it");
         return;
     }
 
