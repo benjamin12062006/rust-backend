@@ -25,6 +25,7 @@ struct FakeUserRepositoryState {
 }
 
 impl FakeUserRepository {
+    
     pub fn with_create_result(self, result: Result<StoredUserRecord>) -> Self {
         self.state
             .lock()
@@ -32,17 +33,17 @@ impl FakeUserRepository {
             .create_result = Some(result);
         self
     }
-
+    
     pub fn with_list_result(self, result: Result<Vec<StoredUserRecord>>) -> Self {
         self.state.lock().expect("fake repository lock").list_result = Some(result);
         self
     }
-
+    
     pub fn with_get_result(self, result: Result<StoredUserRecord>) -> Self {
         self.state.lock().expect("fake repository lock").get_result = Some(result);
         self
     }
-
+     
     pub fn created_records(&self) -> Vec<CreateUserRecord> {
         self.state
             .lock()
@@ -54,8 +55,15 @@ impl FakeUserRepository {
     pub fn last_get_id(&self) -> Option<Uuid> {
         self.state.lock().expect("fake repository lock").last_get_id
     }
+
+    
 }
 
+// Box = oculta y almacena el Future
+// Pin = lo mantiene estable en memoria
+// Send = permite moverlo entre hilos
+// Sync = permite compartirlo entre hilos
+// 
 #[async_trait]
 impl IUserRepository for FakeUserRepository {
     async fn create_user(&self, record: &CreateUserRecord) -> Result<StoredUserRecord> {
@@ -75,6 +83,7 @@ impl IUserRepository for FakeUserRepository {
         }
     }
 
+    // TODO: CONTINUE
     async fn list_users(&self) -> Result<Vec<StoredUserRecord>> {
         self.state
             .lock()
