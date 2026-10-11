@@ -3,9 +3,14 @@ name = "backend"
 version = "0.1.0"
 edition = "2024"
 
+[workspace]
+members = ["crates/expression_evaluator"]
+resolver = "3"
+
 [dependencies]
 async-trait = "0.1.89"
 dotenv = "0.15.0"
+expression_evaluator = { path = "crates/expression_evaluator" }
 pwhash = "1.0.0"
 qdrant-client = "1.17.0"
 serde = {version="1.0.228", features = ["derive"]}
