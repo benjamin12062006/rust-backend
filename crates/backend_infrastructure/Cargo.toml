@@ -1,0 +1,14 @@
+[package]
+name = "backend_infrastructure"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+async-trait = { workspace = true }
+backend_application = { path = "../backend_application" }
+backend_common = { path = "../backend_common" }
+backend_config = { path = "../backend_config" }
+qdrant-client = { workspace = true }
+sqlx = { workspace = true }
+surrealdb = { workspace = true }
+uuid = { workspace = true }

@@ -1,0 +1,14 @@
+[package]
+name = "backend_http"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+backend_application = { path = "../backend_application" }
+backend_common = { path = "../backend_common" }
+serde = { workspace = true }
+uuid = { workspace = true }
+warp = { workspace = true }
+
+[dev-dependencies]
+rstest = { workspace = true }

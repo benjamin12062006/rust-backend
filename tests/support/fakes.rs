@@ -1,13 +1,13 @@
 use std::sync::{Arc, Mutex};
 
 use async_trait::async_trait;
-use backend::features::user::application::dto::input::create_user_input::CreateUserInput;
-use backend::features::user::application::dto::output::user_output::UserOutput;
-use backend::features::user::ports::inbound::user_use_case::IUserUseCase;
-use backend::features::user::ports::out::user::records::input::create_user_record::CreateUserRecord;
-use backend::features::user::ports::out::user::records::output::stored_user_record::StoredUserRecord;
-use backend::features::user::ports::out::user::user_repository::IUserRepository;
-use backend::shared::common::error::{CustomError, Result};
+use backend_application::user_application::dto::input::create_user_input::CreateUserInput;
+use backend_application::user_application::dto::output::user_output::UserOutput;
+use backend_application::user_ports::inbound::user_use_case::IUserUseCase;
+use backend_application::user_ports::out::user::records::input::create_user_record::CreateUserRecord;
+use backend_application::user_ports::out::user::records::output::stored_user_record::StoredUserRecord;
+use backend_application::user_ports::out::user::user_repository::IUserRepository;
+use backend_common::common::error::{CustomError, Result};
 use uuid::Uuid;
 
 #[derive(Clone, Default)]
@@ -25,6 +25,7 @@ struct FakeUserRepositoryState {
 }
 
 impl FakeUserRepository {
+
     pub fn with_create_result(self, result: Result<StoredUserRecord>) -> Self {
         self.state
             .lock()
@@ -54,8 +55,15 @@ impl FakeUserRepository {
     pub fn last_get_id(&self) -> Option<Uuid> {
         self.state.lock().expect("fake repository lock").last_get_id
     }
+
+
 }
 
+// Box = oculta y almacena el Future
+// Pin = lo mantiene estable en memoria
+// Send = permite moverlo entre hilos
+// Sync = permite compartirlo entre hilos
+//
 #[async_trait]
 impl IUserRepository for FakeUserRepository {
     async fn create_user(&self, record: &CreateUserRecord) -> Result<StoredUserRecord> {
@@ -84,6 +92,9 @@ impl IUserRepository for FakeUserRepository {
             .unwrap_or_else(|| Ok(vec![]))
     }
 
+    // Stub → devuelve respuestas preparadas.
+    // Spy  → recuerda las llamadas recibidas.
+    // Fake → implementación ligera que puede hacer ambas cosas.
     async fn get_user(&self, id: &Uuid) -> Result<StoredUserRecord> {
         let mut state = self.state.lock().expect("fake repository lock");
         state.last_get_id = Some(*id);
@@ -94,6 +105,9 @@ impl IUserRepository for FakeUserRepository {
     }
 }
 
+
+
+// todo : continuar
 #[derive(Clone)]
 pub struct FakeUserUseCase {
     state: Arc<Mutex<FakeUserUseCaseState>>,

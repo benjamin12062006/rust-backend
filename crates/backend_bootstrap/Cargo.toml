@@ -1,0 +1,13 @@
+[package]
+name = "backend_bootstrap"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+backend_application = { path = "../backend_application" }
+backend_common = { path = "../backend_common" }
+backend_config = { path = "../backend_config" }
+backend_http = { path = "../backend_http" }
+backend_infrastructure = { path = "../backend_infrastructure" }
+sqlx = { workspace = true }
+thiserror = { workspace = true }

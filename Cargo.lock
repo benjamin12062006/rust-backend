@@ -346,18 +346,95 @@ name = "backend"
 version = "0.1.0"
 dependencies = [
  "async-trait",
- "dotenv",
+ "backend_application",
+ "backend_bootstrap",
+ "backend_common",
+ "backend_config",
+ "backend_domain",
+ "backend_http",
+ "backend_infrastructure",
  "expression_evaluator",
  "pwhash",
- "qdrant-client",
- "serde",
+ "rstest 0.25.0",
  "serde_json",
- "sqlx",
- "surrealdb",
- "thiserror 2.0.18",
  "tokio",
  "uuid",
  "warp",
+]
+
+[[package]]
+name = "backend_application"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "backend_common",
+ "backend_domain",
+ "pwhash",
+ "rstest 0.25.0",
+ "uuid",
+]
+
+[[package]]
+name = "backend_bootstrap"
+version = "0.1.0"
+dependencies = [
+ "backend_application",
+ "backend_common",
+ "backend_config",
+ "backend_http",
+ "backend_infrastructure",
+ "sqlx",
+ "thiserror 2.0.18",
+]
+
+[[package]]
+name = "backend_common"
+version = "0.1.0"
+dependencies = [
+ "pwhash",
+ "thiserror 2.0.18",
+ "warp",
+]
+
+[[package]]
+name = "backend_config"
+version = "0.1.0"
+dependencies = [
+ "dotenv",
+ "thiserror 2.0.18",
+]
+
+[[package]]
+name = "backend_domain"
+version = "0.1.0"
+dependencies = [
+ "uuid",
+]
+
+[[package]]
+name = "backend_http"
+version = "0.1.0"
+dependencies = [
+ "backend_application",
+ "backend_common",
+ "rstest 0.25.0",
+ "serde",
+ "uuid",
+ "warp",
+]
+
+[[package]]
+name = "backend_infrastructure"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "backend_application",
+ "backend_common",
+ "backend_config",
+ "qdrant-client",
+ "sqlx",
+ "surrealdb",
+ "uuid",
 ]
 
 [[package]]
@@ -3914,13 +3991,43 @@ dependencies = [
 
 [[package]]
 name = "rstest"
+version = "0.25.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6fc39292f8613e913f7df8fa892b8944ceb47c247b78e1b1ae2f09e019be789d"
+dependencies = [
+ "futures-timer",
+ "futures-util",
+ "rstest_macros 0.25.0",
+ "rustc_version",
+]
+
+[[package]]
+name = "rstest"
 version = "0.26.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f5a3193c063baaa2a95a33f03035c8a72b83d97a54916055ba22d35ed3839d49"
 dependencies = [
  "futures-timer",
  "futures-util",
- "rstest_macros",
+ "rstest_macros 0.26.1",
+]
+
+[[package]]
+name = "rstest_macros"
+version = "0.25.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1f168d99749d307be9de54d23fd226628d99768225ef08f6ffb52e0182a27746"
+dependencies = [
+ "cfg-if",
+ "glob",
+ "proc-macro-crate",
+ "proc-macro2",
+ "quote",
+ "regex",
+ "relative-path",
+ "rustc_version",
+ "syn 2.0.117",
+ "unicode-ident",
 ]
 
 [[package]]
@@ -4870,7 +4977,7 @@ dependencies = [
  "papaya",
  "rand 0.8.6",
  "regex",
- "rstest",
+ "rstest 0.26.1",
  "rust_decimal",
  "serde",
  "serde_json",

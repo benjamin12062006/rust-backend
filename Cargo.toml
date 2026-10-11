@@ -4,16 +4,26 @@ version = "0.1.0"
 edition = "2024"
 
 [workspace]
-members = ["crates/expression_evaluator"]
+members = [
+    "crates/backend_application",
+    "crates/backend_bootstrap",
+    "crates/backend_common",
+    "crates/backend_config",
+    "crates/backend_domain",
+    "crates/backend_http",
+    "crates/backend_infrastructure",
+    "crates/expression_evaluator",
+]
 resolver = "3"
 
-[dependencies]
+[workspace.dependencies]
 async-trait = "0.1.89"
 dotenv = "0.15.0"
-expression_evaluator = { path = "crates/expression_evaluator" }
 pwhash = "1.0.0"
 qdrant-client = "1.17.0"
-serde = {version="1.0.228", features = ["derive"]}
+rstest = "0.25.0"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1"
 sqlx = { version = "0.8.6", features = ["migrate", "postgres", "runtime-tokio-native-tls", "uuid", "chrono"] }
 surrealdb = { version = "3.0.5", features = ["kv-mem", "protocol-ws"] }
 thiserror = "2.0.18"
@@ -21,8 +31,24 @@ tokio = { version = "1", features = ["rt-multi-thread"] }
 uuid = { version = "1.23.0", features = ["serde", "v4"] }
 warp = { version = "0.4.2", features = ["server", "test"] }
 
+[dependencies]
+backend_application = { path = "crates/backend_application" }
+backend_bootstrap = { path = "crates/backend_bootstrap" }
+backend_common = { path = "crates/backend_common" }
+backend_config = { path = "crates/backend_config" }
+backend_domain = { path = "crates/backend_domain" }
+backend_http = { path = "crates/backend_http" }
+backend_infrastructure = { path = "crates/backend_infrastructure" }
+expression_evaluator = { path = "crates/expression_evaluator" }
+tokio = { workspace = true }
+
 [dev-dependencies]
-serde_json = "1"
+async-trait = { workspace = true }
+pwhash = { workspace = true }
+rstest = { workspace = true }
+serde_json = { workspace = true }
+uuid = { workspace = true }
+warp = { workspace = true }
 
 [profile.release]
 lto = true
