@@ -1,10 +1,20 @@
 # 01 — Integrar el evaluador de expresiones como dependencia
 
 Fecha de creación: 2026-10-11
-Estado: Implementado y verificado
+Última actualización: 2026-10-12
+Estado: Registro histórico; biblioteca retirada del backend actual
 Ámbito: Backend y biblioteca `expression_evaluator`
-Relacionada con: [API del evaluador](../crates/expression_evaluator/src/lib.rs)
+Relacionada con: [Integración en main](02-integrar-version-reciente-en-main.md)
 Revisión de partida: `d2b04c4c40a00e2e59f8d6474b6548ace5f24874` en `main`.
+
+## Evolución posterior
+
+Este documento conserva la integración histórica del evaluador en el backend.
+El backend actual ya no depende de esa biblioteca ni contiene sus pruebas de
+consumo. Las rutas del evaluador que aparecen aquí corresponden al snapshot
+histórico del tag `v1.5.0` de este repositorio, no a archivos del árbol actual.
+Se pueden consultar sin cambiar de rama con
+`git show v1.5.0:crates/expression_evaluator/src/lib.rs`.
 
 ## Necesidad y punto de partida
 
@@ -42,19 +52,20 @@ No se añade un endpoint ni se cambia el comportamiento HTTP.
 
 | Decisión | Archivo y símbolo | Adaptación |
 | --- | --- | --- |
-| Dependencia reproducible dentro del repositorio | [Cargo.toml](../Cargo.toml), `workspace.members` y `dependencies.expression_evaluator` | Ruta relativa `crates/expression_evaluator`; lockfile actualizado sin nuevas dependencias externas. |
-| Nombre funcional e independencia del workspace original | [Cargo.toml del crate](../crates/expression_evaluator/Cargo.toml) | Paquete `expression_evaluator`, versión `0.1.0`, edición `2024`, publicación deshabilitada. |
-| Frontera pública sin consola[^F1] | [lib.rs](../crates/expression_evaluator/src/lib.rs), `calcular` | El antiguo `exercise1/mod.rs` pasa a ser la raíz de la biblioteca y conserva los diez tests. |
-| Errores distinguibles por los consumidores[^F1] | [errores.rs](../crates/expression_evaluator/src/errores.rs), `ExpresionError` | Enum público, reexportado desde la raíz, con `Display` original y `std::error::Error` añadido. |
-| Mantener el algoritmo original[^F1] | [parse](../crates/expression_evaluator/src/parse/mod.rs), [evaluacion.rs](../crates/expression_evaluator/src/evaluacion.rs) | Solo se adaptan rutas y visibilidad interna; la gramática y evaluación no cambian. |
-| Verificar consumo desde el backend | [Pruebas de integración](../tests/expression_evaluator_tests.rs) | Importación directa del crate, resultado, variante de error y compatibilidad con el trait estándar. |
+| Dependencia reproducible dentro del repositorio | `v1.5.0:Cargo.toml`, `workspace.members` y `dependencies.expression_evaluator` | Ruta relativa `crates/expression_evaluator`; lockfile actualizado sin nuevas dependencias externas. |
+| Nombre funcional e independencia del workspace original | `v1.5.0:crates/expression_evaluator/Cargo.toml` | Paquete `expression_evaluator`, versión `0.1.0`, edición `2024`, publicación deshabilitada. |
+| Frontera pública sin consola[^F1] | `v1.5.0:crates/expression_evaluator/src/lib.rs`, `calcular` | El antiguo `exercise1/mod.rs` pasa a ser la raíz de la biblioteca y conserva los diez tests. |
+| Errores distinguibles por los consumidores[^F1] | `v1.5.0:crates/expression_evaluator/src/errores.rs`, `ExpresionError` | Enum público, reexportado desde la raíz, con `Display` original y `std::error::Error` añadido. |
+| Mantener el algoritmo original[^F1] | `v1.5.0:crates/expression_evaluator/src/parse/mod.rs` y `v1.5.0:crates/expression_evaluator/src/evaluacion.rs` | Solo se adaptan rutas y visibilidad interna; la gramática y evaluación no cambian. |
+| Verificar consumo desde el backend | `v1.5.0:tests/expression_evaluator_tests.rs` | Importación directa del crate, resultado, variante de error y compatibilidad con el trait estándar. |
 
-El flujo sigue siendo `calcular(&str)` → `Parser::parsear` → árbol interno →
-`evaluar` → `Result<f64, ExpresionError>`. El backend puede usar esa función
+El flujo histórico era `calcular(&str)` → `Parser::parsear` → árbol interno →
+`evaluar` → `Result<f64, ExpresionError>`. El backend podía usar esa función
 sin inicializar bases de datos ni simular entrada por consola.
 
-El adaptador original permanece en [aplicacion.rs](../crates/expression_evaluator/src/aplicacion.rs),
-como `run_exercise1`, para uso manual; no se invoca desde el servidor.
+El adaptador original se conservaba en
+`v1.5.0:crates/expression_evaluator/src/aplicacion.rs`, como `run_exercise1`,
+para uso manual; no se invocaba desde el servidor.
 
 ## Comprobación
 
@@ -86,7 +97,7 @@ ruta nueva.
 
 ## Consecuencias y continuidad
 
-La biblioteca está disponible para usarla desde los módulos del backend mediante
+En el estado histórico, la biblioteca estaba disponible desde los módulos del backend mediante
 `use expression_evaluator::{calcular, ExpresionError};`.
 La copia es independiente: cambios posteriores en el proyecto de prácticas no se
 sincronizan automáticamente.
@@ -112,7 +123,7 @@ el traslado a la versión reciente ya esté realizado.
 ## Fuentes
 
 [^F1]: Código propio consultado el 2026-10-11:
-    [exercise1/mod.rs](file:///Users/benji/Documents/RUST/aprendisajeRS/PRACTICE-rs/crates/i/src/interpreters/exercise1/mod.rs),
+    [exercise1/mod.rs](/Users/benji/Documents/RUST/aprendisajeRS/PRACTICE-rs/crates/i/src/interpreters/exercise1/mod.rs),
     líneas 25–47 y tests 49–109; `errores.rs`, líneas 13–50;
     `parse/{mod,entrada,gramatica,numeros}.rs`; `evaluacion.rs`, `expresion.rs`
     y `aplicacion.rs`.
@@ -121,6 +132,6 @@ el traslado a la versión reciente ya esté realizado.
     el directorio `exercise1/` estaba sin rastrear. Esta referencia identifica
     el contexto Git, no una revisión que ya contenga el ejercicio.
 
-[^F2]: [Consigna propia: evaluador de expresiones básico](file:///Users/benji/Documents/apps_uso_propio/organizar-tareas-ai/data/memoria/logicaRust/ejercicio-evaluador-expresiones.md).
+[^F2]: [Consigna propia: evaluador de expresiones básico](/Users/benji/Documents/apps_uso_propio/organizar-tareas-ai/data/memoria/logicaRust/ejercicio-evaluador-expresiones.md).
     Secciones «Entrada», «Salida» y «Plan de implementación».
     Consultada mediante la skill `memo` el 2026-10-11.

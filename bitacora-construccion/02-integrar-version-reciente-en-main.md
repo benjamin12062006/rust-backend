@@ -1,11 +1,19 @@
 # 02 — Integrar la versión reciente en main y etiquetar el estado
 
 Fecha de creación: 2026-10-11
+Última actualización: 2026-10-12
 Estado: Implementado y verificado
 Ámbito: Integración Git y workspace del backend
 Relacionada con: [Primera integración del evaluador](01-integrar-evaluador-expresiones.md)
 Revisión de partida de `main`: `4b9b6527b22c1e266a96f1f7555a5d35821ba543`.
 Origen: rama `v1.4.1`, commit `b4e746e25361590cc16150865eb5bac24f1f0312`.
+
+## Evolución posterior
+
+Este documento conserva la integración histórica del backend etiquetada como
+`v1.5.0`. El backend actual ya no depende del evaluador ni contiene sus pruebas
+de consumo. Las rutas de esa biblioteca identifican archivos del tag de este
+repositorio; se consultan con `git show v1.5.0:<ruta>`.
 
 ## Necesidad y evidencia
 
@@ -46,11 +54,12 @@ se revisó todo el árbol resultante antes de cerrar el commit.
 El commit de integración conserva como padres ambos avances; no es un reemplazo
 de refs ni una reescritura de los historiales.
 
-El [manifest raíz](../Cargo.toml) conserva los siete crates del backend reciente
+El manifest histórico `v1.5.0:Cargo.toml` conserva los siete crates del backend reciente
 y añade `expression_evaluator` a los miembros del workspace y a las dependencias
 del paquete raíz. `Cargo.lock` solo añade el evaluador respecto al origen.
-Se mantienen íntegros los archivos del [evaluador](../crates/expression_evaluator/src/lib.rs),
-su [test de consumo](../tests/expression_evaluator_tests.rs) y la entrada 01.
+En ese snapshot se mantienen íntegros los archivos de
+`crates/expression_evaluator`, su test `tests/expression_evaluator_tests.rs`
+y la entrada 01.
 
 Los módulos viejos de `src/features/` y `src/shared/` se retiran del árbol
 versionado porque sus reemplazos están en `crates/backend_*`. La documentación
@@ -103,6 +112,6 @@ de `main` sin crear una rama por número de versión.
     `database_connection_ping_is_opt_in`.
 
 [^F2]: [Entrada 01](01-integrar-evaluador-expresiones.md),
-    [manifest del evaluador](../crates/expression_evaluator/Cargo.toml) y
-    [pruebas de consumo](../tests/expression_evaluator_tests.rs).
+    `v1.5.0:crates/expression_evaluator/Cargo.toml` y
+    `v1.5.0:tests/expression_evaluator_tests.rs`.
     Revisión de respaldo: `4b9b6527b22c1e266a96f1f7555a5d35821ba543`.

@@ -1,21 +1,9 @@
-//! DTO de salida para exponer datos de usuario fuera de application.
-//!
-//! Flujo esperado en esta direccion:
-//! - `User` (domain) -> `UserOutput` (application/output).
-//! - No al reves, salvo necesidad explicita.
-//!
-//! Esto evita exponer directamente el modelo de dominio en adaptadores de salida
-//! como HTTP.
-
 use uuid::Uuid;
 
 use backend_domain::user::user_model::User;
 
 use crate::user_ports::out::user::records::output::stored_user_record::StoredUserRecord;
 
-/// Datos de salida de usuario listos para capa externa.
-///
-/// Este DTO no expone campos sensibles como `password`.
 #[derive(Debug, Clone)]
 pub struct UserOutput {
     pub user_id: Uuid,
@@ -37,39 +25,6 @@ impl From<StoredUserRecord> for UserOutput {
     }
 }
 
-/// Convierte el modelo de dominio `User` al DTO `UserOutput`.
-///
-/// Uso equivalente:
-/// - `let output = UserOutput::from(user);`
-/// - `let output: UserOutput = user.into();`
-///
-/// Regla mental:
-/// - `impl From<A> for B` significa "A se convierte en B".
-/// - Si existe `From<User> for UserOutput`, entonces `into()` se invoca sobre
-///   `User` para obtener `UserOutput`.
-///
-/// Ejemplo:
-/// ```rust
-/// # use uuid::Uuid;
-/// # struct User { user_id: Uuid, first_name: String, last_name: String, email: String, user_name: String, password: String }
-/// # struct UserOutput { user_id: Uuid, first_name: String, last_name: String, email: String, username: String }
-/// # impl From<User> for UserOutput {
-/// #   fn from(user: User) -> Self {
-/// #     Self { user_id: user.user_id, first_name: user.first_name, last_name: user.last_name, email: user.email, username: user.user_name }
-/// #   }
-/// # }
-/// let user = User {
-///     user_id: Uuid::nil(),
-///     first_name: "Ana".to_string(),
-///     last_name: "Lopez".to_string(),
-///     email: "ana@example.com".to_string(),
-///     user_name: "ana".to_string(),
-///     password: "secret".to_string(),
-/// };
-///
-/// let output = UserOutput::from(user);
-/// # let _ = output;
-/// ```
 impl From<User> for UserOutput {
     fn from(user: User) -> Self {
         Self {

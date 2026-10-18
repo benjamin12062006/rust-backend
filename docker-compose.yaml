@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
 
   surrealdb:
-    image: surrealdb/surrealdb:latest
+    image: surrealdb/surrealdb:v3.3.4
     container_name: backend-surrealdb
     user: "0:0"
     command:
