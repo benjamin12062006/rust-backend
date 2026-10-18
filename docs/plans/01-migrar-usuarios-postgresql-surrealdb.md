@@ -1,10 +1,29 @@
 # 01 — Migrar usuarios de PostgreSQL a SurrealDB
 
 Fecha de creación: 2026-10-14  
-Estado: Plan; todavía no implementado  
+Última actualización: 2026-10-17
+Estado: Plan antecedente; sustituido parcialmente por los planes 02–04
 Ámbito: Backend, incremento 0 de la transición a SurrealDB  
 Relacionada con: [producto y prototipo](../../docs-diagrams/01-producto-y-prototipo.md), [fases](../../docs-diagrams/03-fases-y-diagramas.md), [fuentes](../../docs-diagrams/04-fuentes-y-validacion.md), [dominio y datos](../../docs-diagrams/06-dominio-y-datos-surrealdb.md), [arquitectura y contratos](../../docs-diagrams/07-arquitectura-y-contratos.md) y [decisiones y construcción](../../docs-diagrams/09-decisiones-y-plan-de-construccion.md)  
 Revisión de referencia: `260096f28a116e88b8dae300ea30566457d018cb` en `feature/first-steps`, con cambios locales ya existentes
+
+## Cambio de dirección del 2026-10-17
+
+El usuario decidió simplificar la arquitectura y usar Firebase Authentication.
+La ruta vigente comienza en [02 — Simplificar y preparar auth](02-simplificar-backend-y-preparar-auth.md),
+continúa en [03 — Auth Firebase y SurrealDB](03-auth-firebase-surrealdb.md) y
+define el esquema en [04 — Migraciones con SurrealKit](04-esquema-y-migraciones-surrealkit.md).
+
+Se conservan de este antecedente la versión objetivo SurrealDB 3.3.4,
+la separación del proveedor, los UUID estables y la obligación de resolver los
+datos existentes antes de retirar PostgreSQL. Quedan sustituidas las propuestas
+de mantener siete crates, migrar obligatoriamente el CRUD de contraseñas tal
+cual, conservar todos sus endpoints y escribir un ejecutor de migraciones propio.
+
+La cuenta Firebase nueva no almacena hashes ni estados. SurrealKit administrará
+el esquema fuera del arranque de la API. No se ha ejecutado esa transición:
+el resto de este documento conserva el objetivo anterior como contexto histórico,
+no como instrucciones concurrentes con los planes nuevos.
 
 ## Objetivo
 

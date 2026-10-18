@@ -1,8 +1,23 @@
 # 07 — Arquitectura y contratos
 
 Fecha de creación: 2026-10-12  
-Estado: Diseño objetivo.  
+Última actualización: 2026-10-17
+Estado: Diseño original; distribución en crates revisada por el plan 02.
 Relacionado: [dominio](./06-dominio-y-datos-surrealdb.md), [ejecución](./08-secuencias-y-estados.md), [construcción](./09-decisiones-y-plan-de-construccion.md).
+
+## Evolución de arquitectura
+
+El [plan 02](../docs/plans/02-simplificar-backend-y-preparar-auth.md) propone
+un único crate con módulos por funcionalidad para reducir mantenimiento,
+manteniendo Warp y los límites entre servicio y adaptadores. El
+[plan de auth](../docs/plans/03-auth-firebase-surrealdb.md) y el
+[plan de migraciones](../docs/plans/04-esquema-y-migraciones-surrealkit.md)
+concretan el primer incremento. Todavía no se ha movido el código.
+
+Los diagramas siguientes conservan el diseño original del catálogo. El mapa
+de siete crates no representa ya el destino propuesto para auth; los contratos
+de catálogo siguen siendo una propuesta futura, no archivos que deban crearse
+antes de implementar el login.
 
 ## Vista de despliegue
 
